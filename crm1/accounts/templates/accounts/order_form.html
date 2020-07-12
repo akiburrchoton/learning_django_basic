@@ -10,7 +10,7 @@
                     {% csrf_token %}
                     {{showForm.management_form}}
                     {% for form in showForm %}
-                        {{form}}
+                        {{form}} 
                         <hr>
                     {% endfor %}
                     <input class="btn btn-primary" type="submit" name="Submit">
