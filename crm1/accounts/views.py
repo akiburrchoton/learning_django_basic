@@ -45,6 +45,7 @@ def customer(request, pk_test):
     myFilter            = OrderFilter(request.GET, queryset=ordersByCustomer)
     ordersByCustomer    = myFilter.qs
 
+    # Context
     context = {
         'customer'      : customerBasedOnId,
         'orders'        : ordersByCustomer,
