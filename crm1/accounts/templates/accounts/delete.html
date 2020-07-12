@@ -1,0 +1,22 @@
+{% extends 'accounts/main.html' %}  {% comment %} extends to parent - main.html {% endcomment %}
+{% load static %} {% comment %} connect/load the static files from static folder (css, js etc) {% endcomment %}
+
+{% block content %}  
+    <br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+                <p>Are you sure you want to delete "{{deleteItem}}"?</p>
+
+                <form action="{% url 'showUrlDeleteOrder' deleteItem.id %}" method="POST">
+                    {% csrf_token %}
+                    <a class="btn btn-warning" href="{% url 'showUrlHome' %}">Cancel</a>
+                    <input class="btn btn-danger" type="submit" name="Confirm" id="">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

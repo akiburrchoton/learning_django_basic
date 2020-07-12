@@ -1,0 +1,22 @@
+{% extends 'accounts/main.html' %}  {% comment %} extends to parent - main.html {% endcomment %}
+{% load static %} {% comment %} connect/load the static files from static folder (css, js etc) {% endcomment %}
+
+{% block content %}  
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{showForm.management_form}}
+                    {% for form in showForm %}
+                        {{form}}
+                        <hr>
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" name="Submit">
+                </form>
+            </div>
+        </div>
+    </div>   
+
+{% endblock %} 
