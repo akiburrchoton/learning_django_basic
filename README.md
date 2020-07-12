@@ -1,4 +1,4 @@
-# learning_django_basic
+# Django Framework Basic Learning
 After completing basic Python Programming, now I have started learning Django framework since I want to develop complex projects soon. 
 
 
