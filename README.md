@@ -25,3 +25,20 @@ After completing basic Python Programming, now I have started learning Django fr
         <li>Filter Form Table Search</li>
     </ol>
 </div>
+
+<div>
+    <h2>Date: 13.07.2020</h2>
+    <ol>
+        <li>User Regstration</li>
+        <li>
+        
+        <li>User Login Authentication</li>
+        <p>-- Login to the system through form</p>
+        <p>-- Showing Error Messages </p>
+        <p>-- Showing Success Message</p>
+        
+        <li>Basic User Restrictions</li>
+        <p>-- If user is logged in they cannot see login, register page</p>
+        <p>-- If user is not logged in they cannot see any other pages than login and register page.</p>
+    </ol>
+</div>
