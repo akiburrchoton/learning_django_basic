@@ -1,12 +1,67 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import *
-from .forms import OrderForm
-from .filters import OrderFilter
 from django.forms import inlineformset_factory # formset - multiple forms in a single form
+from django.contrib.auth.forms import UserCreationForm # djnago user form - we can customise it by ourself
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages #flash message - one time message 
+from django.contrib.auth.decorators import login_required # to maintain the user resctriction
+
+from .models import *
+from .forms import OrderForm, CreateUserForm
+from .filters import OrderFilter
+
 # Create your views here.
 
+def registerPage(request):
 
+    #if user is already logged in they cannot see register page
+    if request.user.is_authenticated:
+        return redirect('showUrlHome')
+    else:
+        regForm    = CreateUserForm() # CreateUserForm - my customised form in forms.py
+
+        if request.method == "POST":
+            regForm    = CreateUserForm(request.POST)
+            if regForm.is_valid():
+                regForm.save()
+                newUser    = regForm.cleaned_data.get('username') # The user which was created in register form
+                messages.success(request, 'Account was created for ' + newUser ) # Success Message
+                return redirect('showUrlLogin') # In redirect I must use the name="something" which I used in urls.py
+
+    context ={
+        'showRegForm': regForm,
+    }
+    return render(request, 'accounts/register.html', context)
+
+
+def loginPage(request):
+    
+    #if user is already logged in they cannot see login page
+    if request.user.is_authenticated:
+        return redirect('showUrlHome')
+    else:
+        if request.method == 'POST':
+            fetchedUsername     = request.POST.get('username')
+            fetchedPassword     = request.POST.get('password')
+
+            authenticatedUser   = authenticate(request, username=fetchedUsername, password=fetchedPassword)
+
+            if authenticatedUser is not None:
+                login(request, authenticatedUser) # This login() method is django built in
+                return redirect('showUrlHome') # In redirect I must use the name="something" which I used in urls.py
+            else:
+                messages.info(request, 'Username or Password is incorrect!')
+    
+    
+    context = {}
+    return render(request, 'accounts/login.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('showUrlLogin')
+
+@login_required(login_url='showUrlLogin') # Restricting users who are not logged in
 def home(request):
     allOrders       = Order.objects.all()
     allCustomers    = Customer.objects.all()
@@ -28,6 +83,7 @@ def home(request):
     
     return render(request, 'accounts/dashboard.html', context)
 
+@login_required(login_url='showUrlLogin')
 def products(request):
     allProducts = Product.objects.all()
 
@@ -37,6 +93,8 @@ def products(request):
 
     return render(request, 'accounts/products.html', context)
     
+
+@login_required(login_url='showUrlLogin') # Restricting users who are not logged in    
 def customer(request, pk_test):
     customerBasedOnId   = Customer.objects.get(id=pk_test)
     ordersByCustomer    = customerBasedOnId.order_set.all()
@@ -55,6 +113,8 @@ def customer(request, pk_test):
 
     return render(request, 'accounts/customer.html', context)
 
+
+@login_required(login_url='showUrlLogin') # Restricting users who are not logged in
 def createOrder(request, pk):
     OrderFormSet        = inlineformset_factory(Customer, Order, fields=('product', 'status'), extra=10)
     customerBasedOnId   = Customer.objects.get(id=pk)
@@ -77,7 +137,7 @@ def createOrder(request, pk):
     }
     return render(request, 'accounts/order_form.html', context)
 
-
+@login_required(login_url='showUrlLogin') # Restricting users who are not logged in
 def updateOrder(request, pk):
 
     orderBasedOnId  = Order.objects.get(id=pk)
@@ -96,6 +156,7 @@ def updateOrder(request, pk):
     }
     return render(request, 'accounts/order_form.html', context)
 
+@login_required(login_url='showUrlLogin') # Restricting users who are not logged in
 def deleteOrder(request, pk):
     orderBasedOnId  = Order.objects.get(id=pk)  
 
