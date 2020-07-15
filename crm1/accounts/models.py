@@ -1,9 +1,10 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 # IMPORTANT_NOTE - 1. Do makemigrations --> 2. Do migrate --> 3. Add it in admin.py
 
 class Customer(models.Model):
+    user            = models.OneToOneField(User, null=True, on_delete=models.CASCADE) # One Customer can have only one User
     name            = models.CharField(max_length=200, null = True) # null = True -> if empty so that it doesn't show error
     phone           = models.CharField(max_length=200, null = True)
     email           = models.CharField(max_length=200, null = True)
