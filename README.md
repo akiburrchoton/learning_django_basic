@@ -48,3 +48,21 @@ After completing basic Python Programming, now I have started learning Django fr
         </ul>
     </ol>
 </div>
+
+<div>
+    <h2>Date: 15.07.2020</h2>
+    <ol>
+        <li>Restrict Users Based On Their Roles</li>   
+        <ul>
+          <li>Customers cannot see main dashboard page and some specific contents</li>
+          <li>Only admins can see all pages(except login/signup if logged in)</li>
+          <li>Restrict users by creating Decorators</li>
+        </ul>
+        <li>User Profile with One to One relationship</li>
+        <ul>
+          <li>Create extra model to hold extra information </li>
+          <li>Based on this, now customer will be able to see their information in the User page</li>
+          <li>if customer sign up, their role will be Customer automatically</li>
+        </ul>
+    </ol>
+</div>
