@@ -29,19 +29,19 @@ After completing basic Python Programming, now I have started learning Django fr
 <div>
     <h2>Date: 13.07.2020</h2>
     <ol>
-        <li>User Regstration</li>   
+        <li><strong>User Regstration</strong></li>   
         <ul>
           <li>Register new users through form</li>
           <li>Showing Error Messages</li>
           <li>Showing Success Message</li>
         </ul>
-        <li>User Login Authentication</li>
+        <li><strong>User Login Authentication</strong></li>
         <ul>
           <li>Login to the system through form</li>
           <li>Showing Error Messages</li>
           <li>Showing Success Message</li>
         </ul>
-        <li>Basic User Restrictions</li>
+        <li><strong>Basic User Restrictions</strong></li>
         <ul> 
           <li>If user is logged in they cannot see login, register page</li>
           <li>If user is not logged in they cannot see any other pages than login and register page.</li>
@@ -52,13 +52,13 @@ After completing basic Python Programming, now I have started learning Django fr
 <div>
     <h2>Date: 15.07.2020</h2>
     <ol>
-        <li>Restrict Users Based On Their Roles</li>   
+        <li><strong>Restrict Users Based On Their Roles</strong></li>   
         <ul>
           <li>Customers cannot see main dashboard page and some specific contents</li>
           <li>Only admins can see all pages(except login/signup if logged in)</li>
           <li>Restrict users by creating Decorators</li>
         </ul>
-        <li>User Profile with One to One relationship</li>
+        <li><strong>User Profile with One to One relationship</strong></li>
         <ul>
           <li>Create extra model to hold extra information </li>
           <li>Based on this, now customer will be able to see their information in the User page</li>
