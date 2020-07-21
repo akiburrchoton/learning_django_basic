@@ -1,13 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
+
 # IMPORTANT_NOTE - 1. Do makemigrations --> 2. Do migrate --> 3. Add it in admin.py
 
 class Customer(models.Model):
-    user            = models.OneToOneField(User, null=True, on_delete=models.CASCADE) # One Customer can have only one User
+    user            = models.OneToOneField(User, null=True, blank = True, on_delete=models.CASCADE) # One Customer can have only one User | User is django default  
     name            = models.CharField(max_length=200, null = True) # null = True -> if empty so that it doesn't show error
     phone           = models.CharField(max_length=200, null = True)
     email           = models.CharField(max_length=200, null = True)
+    profile_pic     = models.ImageField(default ="profile_def.jpg", null = True, blank = True)
     date_created    = models.DateTimeField(auto_now_add=True, null = True)
 
     def __str__(self):
@@ -29,7 +32,7 @@ class Product(models.Model):
     category    = models.CharField(max_length=200, null= True, choices=CATEGORY)
     description = models.CharField(max_length=200, null=True, blank=True)
     date_created= models.DateTimeField(auto_now_add=True, null=True)
-    tags        = models.ManyToManyField(Tag)
+    tags        = models.ManyToManyField(Tag) # Each Product can have many Tags and Each Tag can be added in many Products
 
     def __str__(self):
         return self.name
@@ -47,6 +50,6 @@ class Order(models.Model):
     status      = models.CharField(max_length=200, null = True, choices=STATUS)
     note        = models.CharField(max_length=1000, null = True)
 
-    
     def __str__(self):
         return self.product.name
+    

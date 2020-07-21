@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required # to maintain the user
 from django.contrib.auth.models import Group 
 
 from .models import *
-from .forms import OrderForm, CreateUserForm
+from .forms import *
 from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
@@ -28,12 +28,13 @@ def registerPage(request):
             newUser = regForm.cleaned_data.get('username') # The user which was created in register form
             messages.success(request, 'Account was created for ' + newUser ) # Success Message
 
-            group   = Group.objects.get(name='customer')
-            user.groups.add(group) 
+            # group   = Group.objects.get(name='customer')
+            # user.groups.add(group) 
+
             # make the user role to customer when they sign up
-            Customer.objects.create(
-                user = user,
-            )
+            # Customer.objects.create(
+            #     user = user,
+            # )
             return redirect('showUrlLogin') # In redirect I must use the name="something" which I used in urls.py
 
     context ={
@@ -107,6 +108,26 @@ def userPage(request):
     }
     return render(request, 'accounts/user.html', context)
     
+
+@login_required(login_url='showUrlLogin') # Restricting users who are not logged in
+@allowed_users(allowed_roles=['customer']) # checks if customer 
+def accountSettings(request):
+    customer    = request.user.customer
+    form        = CustomerFrom(instance=customer)
+
+    if request.method == 'POST':
+        form    = CustomerFrom(request.POST, request.FILES, instance=customer)
+
+        if form.is_valid:
+            form.save()
+
+
+    context = {
+        'showAccountForm' : form 
+    }
+    return render(request, 'accounts/account_settings.html', context)
+
+
 
 @login_required(login_url='showUrlLogin')
 @allowed_users(allowed_roles=['admin'])
