@@ -73,15 +73,12 @@ After completing basic Python Programming, now I have started learning Django fr
     <ol>
         <li><strong>File upload</strong></li>   
         <ul>
-          <li>Customers cannot see main dashboard page and some specific contents</li>
-          <li>Only admins can see all pages(except login/signup if logged in)</li>
-          <li>Restrict users by creating Decorators</li>
+          <li>Adding Images in the Customer Profile</li>
+          <li>Storing Images in Static Folder</li>
         </ul>
         <li><strong>Signal</strong></li>
         <ul>
-          <li>Create extra model to hold extra information </li>
-          <li>Based on this, now customer will be able to see their information in the User page</li>
-          <li>if customer sign up, their role will be Customer automatically</li>
+          <li>Creating New User as Customer by Default </li>
         </ul>
       <li><strong>Password Reset</strong></li>
         <ul>
